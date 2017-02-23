@@ -429,8 +429,10 @@ def aggregate_expression(expr, class_):
         return expr
     elif isinstance(expr, _FunctionGenerator):
         return expr(sa.sql.text('1'))
-    else:
+    elif callable(expr):
         return expr(class_)
+    else:
+        return expr
 
 
 class AggregatedValue(object):
